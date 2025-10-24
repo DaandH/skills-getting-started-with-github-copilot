@@ -27,7 +27,7 @@ document.addEventListener("DOMContentLoaded", () => {
             <div class="participants-section">
               <strong>Participants:</strong>
               <ul class="participants-list">
-                ${details.participants.map(email => `<li>${email}</li>`).join("")}
+                <!-- Participants will be added below using textContent for safety -->
               </ul>
             </div>
           `;
@@ -46,6 +46,16 @@ document.addEventListener("DOMContentLoaded", () => {
           <p><strong>Availability:</strong> ${spotsLeft} spots left</p>
           ${participantsHTML}
         `;
+
+        // Safely add participant emails using textContent
+        if (details.participants.length > 0) {
+          const participantsList = activityCard.querySelector(".participants-list");
+          details.participants.forEach(email => {
+            const li = document.createElement("li");
+            li.textContent = email;
+            participantsList.appendChild(li);
+          });
+        }
 
         activitiesList.appendChild(activityCard);
 
